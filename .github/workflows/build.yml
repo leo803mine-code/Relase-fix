@@ -27,7 +27,7 @@ steps:
       mkdir extracted
       ZIP_FILE=$(find . -maxdepth 1 -type f -iname '*.zip' | head -n 1)
       if [ -z "$ZIP_FILE" ]; then
-        echo "ERROR: Upload the FLR Visuals project ZIP to the repository root."
+        echo "ERROR: Upload the project ZIP to the repository root."
         exit 1
       fi
       unzip -q "$ZIP_FILE" -d extracted
@@ -36,7 +36,7 @@ steps:
     run: |
       GRADLEW=$(find extracted -type f -name gradlew -print -quit)
       if [ -z "$GRADLEW" ]; then
-        echo "ERROR: gradlew not found in project ZIP."
+        echo "ERROR: gradlew not found."
         exit 1
       fi
       PROJECT_DIR=$(dirname "$GRADLEW")
@@ -49,4 +49,4 @@ steps:
     with:
       name: FLR-Visuals
       path: extracted/**/build/libs/*.jar
-      if-no-files-found: error
+      if-no-files-found: error  
